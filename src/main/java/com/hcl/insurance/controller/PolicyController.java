@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PolicyController {
 
 	@PostMapping("/opt")
-	public ResponseEntity<Object> optedPolicy(){
+	public ResponseEntity<Object> purchagePolicy(){
 		return null;
 	}
 }

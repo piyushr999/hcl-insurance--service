@@ -44,6 +44,6 @@ public class Policy {
 
 	private String policyDescription;
 
-	private String termsAndCondition;
+	private String policyTermsAndCondition;
 
 }
