@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Optional;
 
-import javax.activity.InvalidActivityException;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,20 +32,27 @@ public class PurchasePolicyServiceImpl implements PurchasePolicyService {
 	private PolicyRepository policyRepository;
 
 	@Override
-	public ResponseDto purchasePolicy(PurchasePolicyDto purchasePolicyDto) throws InvalidActivityException {
+	public ResponseDto purchasePolicy(PurchasePolicyDto purchasePolicyDto) throws InvalidInputException {
 		ResponseDto responseDto = new ResponseDto();
 		if (purchasePolicyDto.isTermAndCondition() && validateInputs(purchasePolicyDto)) {
 
 			Optional<Customer> customerOptional = customerRepository.findById(purchasePolicyDto.getCustomerId());
 			Optional<Policy> policyOptional = policyRepository.findById(purchasePolicyDto.getPolicyId());
 
-			if (customerOptional.isPresent() && policyOptional.isPresent()) {
+			if (customerOptional.isPresent() && policyOptional.isPresent()
+					&& validateCustomerDetails(customerOptional.get(), policyOptional.get(), purchasePolicyDto)) {
 				CustomerPolicy customerPolicy = new CustomerPolicy();
 				customerPolicy.setCustomerId(customerOptional.get());
 				customerPolicy.setPolicyId(policyOptional.get());
 				customerPolicy.setPolicyPurchaseDate(LocalDate.now());
 				customerPolicy.setPolicyMaturityDate(LocalDate.now().plusYears(policyOptional.get().getPolicyPeriod()));
-				customerPolicyRepository.save(customerPolicy);
+				CustomerPolicy saveCustomer = customerPolicyRepository.save(customerPolicy);
+				responseDto.setData(saveCustomer);
+				responseDto.setHttpStatus(HttpStatus.ACCEPTED);
+				responseDto.setMessage("Policy Registered Successfully");
+				
+				return responseDto;
+				
 			} else {
 				responseDto.setHttpStatus(HttpStatus.BAD_REQUEST);
 				responseDto.setMessage(
@@ -58,25 +63,31 @@ public class PurchasePolicyServiceImpl implements PurchasePolicyService {
 		} else {
 			responseDto.setHttpStatus(HttpStatus.BAD_REQUEST);
 			responseDto.setMessage("Please read and accept mentioned T&C to purchase Policy");
+			return responseDto;
 		}
-		return responseDto;
+		
 	}
 
-	private boolean validateInputs(PurchasePolicyDto purchasePolicyDto) throws InvalidActivityException {
+	private boolean validateInputs(PurchasePolicyDto purchasePolicyDto) throws InvalidInputException {
 		if (null == purchasePolicyDto.getCustomerId()) {
-			throw new InvalidActivityException("Customer Id should not be empty");
+			throw new InvalidInputException("Customer Id should not be empty");
 		} else if (null == purchasePolicyDto.getPolicyId()) {
-			throw new InvalidActivityException("Policy Id should not be empty");
+			throw new InvalidInputException("Policy Id should not be empty");
 		}
 		return true;
 	}
 
-	private boolean validateCustomerDetails(Customer customer, Policy policy, PurchasePolicyDto purchasePolicyDto) throws InvalidInputException {
-		Period period = Period.between(customer.getDob(), LocalDate.now());
-		if (period.getYears() < 13 && StringUtils.isEmpty(purchasePolicyDto.getNominee())) {
-			throw new InvalidInputException("Nominee should not be empty if Age of policy Holder is less than 13 years");
+	private boolean validateCustomerDetails(Customer customer, Policy policy, PurchasePolicyDto purchasePolicyDto)
+			throws InvalidInputException {
+		int customerAge = Period.between(customer.getDob(), LocalDate.now()).getYears();
+		if (customerAge < 13 && StringUtils.isEmpty(purchasePolicyDto.getNominee())) {
+			throw new InvalidInputException(
+					"Nominee should not be empty if Age of policy Holder is less than 13 years");
+		} else if (customerAge < policy.getPolicyFromAge() || customerAge > policy.getPolicyToAge()) {
+			throw new InvalidInputException(
+					"Sorry you are not eligible for selected policy. Please read description properly");
 		}
-			return false;
+		return true;
 	}
 
 }

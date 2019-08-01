@@ -10,23 +10,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "customerId")
 public class Customer {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long customerId;
-	
+
 	private String name;
 	private String gender;
 	private String email;
@@ -34,7 +31,8 @@ public class Customer {
 	private LocalDate dob;
 	private String phoneNo;
 	private String nomineeName;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "customerId")
 	List<CustomerPolicy> customerPolicy;
 }
