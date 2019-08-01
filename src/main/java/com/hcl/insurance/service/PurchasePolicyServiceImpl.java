@@ -48,7 +48,7 @@ public class PurchasePolicyServiceImpl implements PurchasePolicyService {
 				customerPolicy.setPolicyMaturityDate(LocalDate.now().plusYears(policyOptional.get().getPolicyPeriod()));
 				CustomerPolicy saveCustomer = customerPolicyRepository.save(customerPolicy);
 				responseDto.setData(saveCustomer);
-				responseDto.setHttpStatus(HttpStatus.ACCEPTED);
+				responseDto.setHttpStatus(HttpStatus.CREATED);
 				responseDto.setMessage("Policy Registered Successfully");
 				
 				return responseDto;
