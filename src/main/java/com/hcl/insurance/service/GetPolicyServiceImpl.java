@@ -40,9 +40,9 @@ public class GetPolicyServiceImpl implements GetPolicyService{
 	@Override
 	public ResponseDto getPolicyDetail(Long policyId) throws ResourceNotFoundException {
 		
-		policyRepository.findById(policyId).orElseThrow(()->new ResourceNotFoundException("No policy available"));
 		
-		return new ResponseDto("List of Stocks",HttpStatus.ACCEPTED,policyRepository.findById(policyId));
+		
+		return new ResponseDto("List of Stocks",HttpStatus.ACCEPTED,policyRepository.findById(policyId).orElseThrow(()->new ResourceNotFoundException("No policy available")));
 	}
 
 }
