@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.hcl.insurance.dto.ResponseData;
+import com.hcl.insurance.dto.ResponseDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		for (ObjectError error : ex.getBindingResult().getAllErrors()) {
 			details.add(error.getDefaultMessage());
 		}
-		ResponseData error = new ResponseData("Validation Failed", status, details);
+		ResponseDto error = new ResponseDto("Validation Failed", status, details);
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
@@ -37,7 +37,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		List<String> details = new ArrayList<>();
 		details.add(ex.getMessage());
 		log.error(ex.getMessage());
-		ResponseData error = new ResponseData(ex.getMessage(), HttpStatus.BAD_REQUEST, null);
+		ResponseDto error = new ResponseDto(ex.getMessage(), HttpStatus.BAD_REQUEST, null);
 		return new ResponseEntity<>(error, error.getHttpStatus());
 	}
 
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		List<String> details = new ArrayList<>();
 		details.add(ex.getMessage());
 		log.error(ex.getMessage());
-		ResponseData error = new ResponseData(ex.getMessage(), HttpStatus.BAD_REQUEST, null);
+		ResponseDto error = new ResponseDto(ex.getMessage(), HttpStatus.BAD_REQUEST, null);
 		return new ResponseEntity<>(error, error.getHttpStatus());
 	}
 
