@@ -1,5 +1,6 @@
 package com.hcl.insurance.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Customer {
 	private String gender;
 	private String email;
 	private String address;
-	private String dob;
+	private LocalDate dob;
 	private String phoneNo;
 	private String nomineeName;
 	
