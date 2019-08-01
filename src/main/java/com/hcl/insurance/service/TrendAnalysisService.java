@@ -1,4 +1,4 @@
-package hcl.insurance.service;
+package com.hcl.insurance.service;
 
 public class TrendAnalysisService {
 
