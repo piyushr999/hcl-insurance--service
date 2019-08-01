@@ -2,6 +2,7 @@ package com.hcl.insurance.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import com.hcl.insurance.dto.ResponseDto;
 import com.hcl.insurance.exception.InvalidInputException;
 import com.hcl.insurance.service.PurchasePolicyService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/polices")
 public class PurchasePolicyController {

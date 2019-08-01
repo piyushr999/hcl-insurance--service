@@ -38,7 +38,7 @@ public class GetPolicyServiceImpl implements GetPolicyService{
 	}
 
 	@Override
-	public ResponseDto getPolicyDetail(Long policyId) {
+	public ResponseDto getPolicyDetail(Long policyId) throws ResourceNotFoundException {
 		
 		policyRepository.findById(policyId).orElseThrow(()->new ResourceNotFoundException("No policy available"));
 		
