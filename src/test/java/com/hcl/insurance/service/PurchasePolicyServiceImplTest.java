@@ -40,7 +40,7 @@ public class PurchasePolicyServiceImplTest {
 		purchasePolicyDto = new PurchasePolicyDto();
 		purchasePolicyDto.setTermAndCondition(true);
 		purchasePolicyDto.setCustomerId(Long.valueOf(1));
-		purchasePolicyDto.setCustomerId(Long.valueOf(1));
+		purchasePolicyDto.setPolicyId(Long.valueOf(1));
 	}
 	
 	@Test
@@ -61,6 +61,7 @@ public class PurchasePolicyServiceImplTest {
 		purchasePolicyServiceImpl.purchasePolicy(purchasePolicyDto);
 	}
 	
+	@Test 
 	public void testPurchasePolicyWhenCustomerNotPresent() throws InvalidInputException {
 		when(policyRepository.findById(Long.valueOf(1))).thenReturn(Optional.empty());
 		when(customerRepository.findById(Long.valueOf(1))).thenReturn(Optional.empty());
