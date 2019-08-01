@@ -35,7 +35,7 @@ public class TrendAnalysisService {
 				Date.valueOf(LocalDate.now()));
 
 		trends.setTotalCount(count);
-		List<TrendListDto> trendList = new ArrayList();
+		List<TrendListDto> trendList = new ArrayList<>();
 		for (Object[] object : data) {
 			TrendListDto trend = new TrendListDto();
 			Long policyId = Long.valueOf(object[0].toString());
