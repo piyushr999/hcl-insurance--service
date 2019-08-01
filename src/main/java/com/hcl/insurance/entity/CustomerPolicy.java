@@ -30,12 +30,10 @@ public class CustomerPolicy {
 
 	@OneToOne
 	@JoinColumn(name = "policyId")
-	@Column(name = "policy_id")
 	private Policy policyId;
 
 	@ManyToOne
 	@JoinColumn(name = "customerId")
-	@Column(name = "customer_id")
 	private Customer customerId;
 
 	@Column(name = "policy_purchase_date")
