@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/polices")
-public class OptedPolicyController {
+public class PolicyController {
 
 	@PostMapping("/opt")
 	public ResponseEntity<Object> optedPolicy(){
