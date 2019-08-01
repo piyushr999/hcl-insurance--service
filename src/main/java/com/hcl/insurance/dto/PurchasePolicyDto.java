@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PurchasePolicyDto {
 	
-	private Long userId;
+	private Long customerId;
 	
 	private Long policyId;
 	

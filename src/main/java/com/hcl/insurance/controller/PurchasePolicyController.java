@@ -1,5 +1,7 @@
 package com.hcl.insurance.controller;
 
+import javax.activity.InvalidActivityException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +20,7 @@ public class PurchasePolicyController {
 	private PurchasePolicyService purchasePolicyService;
 
 	@PostMapping("/customer/select")
-	public ResponseEntity<Object> purchagePolicy(PurchasePolicyDto purchasePolicyDto) {
+	public ResponseEntity<Object> purchagePolicy(PurchasePolicyDto purchasePolicyDto) throws InvalidActivityException {
 
 		ResponseDto responseDto = purchasePolicyService.purchasePolicy(purchasePolicyDto);
 		return new ResponseEntity<>(responseDto, responseDto.getHttpStatus());
