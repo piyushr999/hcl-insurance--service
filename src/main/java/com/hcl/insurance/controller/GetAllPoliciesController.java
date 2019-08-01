@@ -22,8 +22,8 @@ public class GetAllPoliciesController {
 		return new ResponseEntity<>(getPolicyService.getPolicyList(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Object> getPolicyDetails(@PathVariable("id") Long policyId){
+	@GetMapping("/{policyId}")
+	public ResponseEntity<Object> getPolicyDetails(@PathVariable("policyId") Long policyId){
 		return new ResponseEntity<>(getPolicyService.getPolicyDetail(policyId),HttpStatus.OK);
 	}
 }
