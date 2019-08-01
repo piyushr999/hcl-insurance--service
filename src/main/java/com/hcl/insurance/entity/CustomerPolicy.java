@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class CustomerPolicy {
 	@Column(name = "customer_policy_id")
 	private Long customerPolicyId;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "policyId")
 	@Column(name = "policy_id")
 	private Policy policyId;
