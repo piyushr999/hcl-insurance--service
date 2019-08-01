@@ -17,6 +17,6 @@ public class ResponseDto implements Serializable {
 
 	private String message;
 	private HttpStatus httpStatus;
-	private transient Object data;
+	private Object data;
 
 }

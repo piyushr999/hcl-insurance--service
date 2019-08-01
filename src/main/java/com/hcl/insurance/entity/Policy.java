@@ -43,7 +43,6 @@ public class Policy {
 	private Double policyBaseAmount;
 
 	private String policyDescription;
-
 	private String policyTermsAndCondition;
 
 }
