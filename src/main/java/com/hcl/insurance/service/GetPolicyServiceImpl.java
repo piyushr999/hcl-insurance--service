@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hcl.insurance.dto.PolicyDto;
-import com.hcl.insurance.dto.ResponseData;
+import com.hcl.insurance.dto.ResponseDto;
 import com.hcl.insurance.entity.Policy;
 import com.hcl.insurance.exception.ResourceNotFoundException;
 import com.hcl.insurance.repository.PolicyRepository;
@@ -22,7 +22,7 @@ public class GetPolicyServiceImpl implements GetPolicyService{
 	PolicyRepository policyRepository;
 	
 	@Override
-	public ResponseData getPolicyList() throws ResourceNotFoundException{
+	public ResponseDto getPolicyList() throws ResourceNotFoundException{
 		
 		List<Policy> policyList = policyRepository.findAll();
 		List<PolicyDto> PolicyListModel = new ArrayList<>();
@@ -34,17 +34,15 @@ public class GetPolicyServiceImpl implements GetPolicyService{
 			BeanUtils.copyProperties(policy, policyModel);
 			PolicyListModel.add(policyModel);
 		} 
-		return new ResponseData("List of Stocks",HttpStatus.ACCEPTED,PolicyListModel);
+		return new ResponseDto("List of Stocks",HttpStatus.ACCEPTED,PolicyListModel);
 	}
 
 	@Override
-	public ResponseData getPolicyDetail() {
+	public ResponseDto getPolicyDetail(Long policyId) {
 		
-		if(policyRepository.findAll().isEmpty()) {
-			throw new ResourceNotFoundException("No policy available");
-		}
+		policyRepository.findById(policyId).orElseThrow(()->new ResourceNotFoundException("No policy available"));
 		
-		return new ResponseData("List of Stocks",HttpStatus.ACCEPTED,policyRepository.findAll());
+		return new ResponseDto("List of Stocks",HttpStatus.ACCEPTED,policyRepository.findById(policyId));
 	}
 
 }

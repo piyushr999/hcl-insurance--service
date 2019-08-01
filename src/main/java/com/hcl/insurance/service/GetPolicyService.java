@@ -2,14 +2,14 @@ package com.hcl.insurance.service;
 
 import org.springframework.stereotype.Component;
 
-import com.hcl.insurance.dto.ResponseData;
+import com.hcl.insurance.dto.ResponseDto;
 
 @Component
 public interface GetPolicyService {
 	
 	
-	public ResponseData getPolicyList();
+	public ResponseDto getPolicyList();
 
-	public ResponseData getPolicyDetail();
+	public ResponseDto getPolicyDetail(Long policyId);
 
 }
