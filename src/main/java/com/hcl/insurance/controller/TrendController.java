@@ -13,7 +13,7 @@ import com.hcl.insurance.dto.TrendsDto;
 import com.hcl.insurance.service.TrendAnalysisService;
 
 @RestController
-@RequestMapping("policies/analysis")
+@RequestMapping("/policies/analysis")
 public class TrendController {
 
 	@Autowired
