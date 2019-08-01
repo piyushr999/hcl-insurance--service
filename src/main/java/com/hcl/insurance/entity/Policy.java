@@ -24,23 +24,26 @@ public class Policy {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="policy_id")
+	@Column(name = "policy_id")
 	private Long policyId;
-	
-	@Column(name="policy_name")
+
+	@Column(name = "policy_name")
 	private String policyName;
-	
-	@Column(name="policy_period")
-	private LocalDate policyPeriod;
-	
-	@Column(name="policy_from_age")
+
+	@Column(name = "policy_period")
+	private Integer policyPeriod;
+
+	@Column(name = "policy_from_age")
 	private Integer policyFromAge;
-	
-	@Column(name="policy_to_age")
+
+	@Column(name = "policy_to_age")
 	private Integer policyToAge;
-	
-	@Column(name="policy_base_amount")
+
+	@Column(name = "policy_base_amount")
 	private Double policyBaseAmount;
-	
-	
+
+	private String policyDescription;
+
+	private String termsAndCondition;
+
 }
