@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.activity.InvalidActivityException;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import com.hcl.insurance.dto.ResponseDto;
 import com.hcl.insurance.entity.Customer;
 import com.hcl.insurance.entity.CustomerPolicy;
 import com.hcl.insurance.entity.Policy;
+import com.hcl.insurance.exception.InvalidInputException;
 import com.hcl.insurance.repository.CustomerPolicyRepository;
 import com.hcl.insurance.repository.CustomerRepository;
 import com.hcl.insurance.repository.PolicyRepository;
@@ -39,7 +41,7 @@ public class PurchasePolicyServiceImpl implements PurchasePolicyService {
 			Optional<Customer> customerOptional = customerRepository.findById(purchasePolicyDto.getCustomerId());
 			Optional<Policy> policyOptional = policyRepository.findById(purchasePolicyDto.getPolicyId());
 
-			if (customerOptional.isPresent() && policyOptional.isPresent() && ) {
+			if (customerOptional.isPresent() && policyOptional.isPresent()) {
 				CustomerPolicy customerPolicy = new CustomerPolicy();
 				customerPolicy.setCustomerId(customerOptional.get());
 				customerPolicy.setPolicyId(policyOptional.get());
@@ -69,9 +71,11 @@ public class PurchasePolicyServiceImpl implements PurchasePolicyService {
 		return true;
 	}
 
-	private boolean validateCustomerDetails(Customer customer, Policy policy, PurchasePolicyDto purchasePolicyDto) {
-		int customerAge = Period.between(customer.getDob(), LocalDate.now());
-		if (customer.get)
+	private boolean validateCustomerDetails(Customer customer, Policy policy, PurchasePolicyDto purchasePolicyDto) throws InvalidInputException {
+		Period period = Period.between(customer.getDob(), LocalDate.now());
+		if (period.getYears() < 13 && StringUtils.isEmpty(purchasePolicyDto.getNominee())) {
+			throw new InvalidInputException("Nominee should not be empty if Age of policy Holder is less than 13 years");
+		}
 			return false;
 	}
 
