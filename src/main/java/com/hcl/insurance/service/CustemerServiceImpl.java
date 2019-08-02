@@ -35,20 +35,20 @@ public class CustemerServiceImpl implements CustomerService {
 			custDto.setNomineeName(custEntity.getNomineeName());
 			custDto.setPhoneNo(custEntity.getPhoneNo());
 			List<CustomerPolicy> policiesEntity = custEntity.getCustomerPolicy();
-			
 			if(null != policiesEntity && policiesEntity.size() > 0) {
 				List<PolicyDto> policieList = new ArrayList<>();
-				policiesEntity.forEach(p->{
+				for(CustomerPolicy p : policiesEntity) {
 					PolicyDto policyDto = new PolicyDto();
 					policyDto.setPolicyId(p.getPolicyId().getPolicyId());
 					policyDto.setPolicyName(p.getPolicyId().getPolicyName());
 					policyDto.setPolicyBaseAmount(p.getPolicyId().getPolicyBaseAmount());
 					policyDto.setPolicyFromAge(p.getPolicyId().getPolicyFromAge());
 					policyDto.setPolicyToAge(p.getPolicyId().getPolicyToAge());
+					policyDto.setPolicyDescription(p.getPolicyId().getPolicyDescription());
 					policieList.add(policyDto);
-				});
+				}
 				
-				
+				custDto.setPolicies(policieList);
 			}
 			
 			return custDto;

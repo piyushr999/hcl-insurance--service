@@ -11,4 +11,5 @@ public class PolicyDto {
 	private Integer policyFromAge;
 	private Integer policyToAge;
 	private Double policyBaseAmount;
+	private String policyDescription;
 }

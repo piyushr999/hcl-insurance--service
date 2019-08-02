@@ -73,10 +73,9 @@
           
       <table style='font-size:8.0pt; font-family:Arial;  border: 0.5px thick #000000; border-collapse: collapse; width: 900pt;'>
         <tr>
-          <td colspan='2' style='padding: .1pt .1pt .1pt .1pt; width : 100%'>
-              <b><span style='font-size:10.0pt;font-family:Arial;'>Policies Details :</span></b>
-          </td>
+          <td colspan='2' style='padding: .1pt .1pt .1pt .1pt; width : 100%'><b><span style='font-size:10.0pt;font-family:Arial;'>Policies Details :</span></b></td>
         </tr>	
+        $policies$
       
       </table>
       <div><br/></div>
